@@ -26,48 +26,28 @@ def next_turn(row , column):
 def check_winner():
     for i in range(3):
         if buttons[i][0]['text'] == buttons[i][1]['text'] == buttons[i][2]['text'] != "":
-            buttons[i][0].config(bg="green")
-            buttons[i][1].config(bg="green")
-            buttons[i][2].config(bg="green")
-
+            for j in range(3):
+                buttons[i][j].config(bg="green")
+            return True
         if buttons[0][i]['text'] == buttons[1][i]['text'] == buttons[2][i]['text'] != "":
-            buttons[0][i].config(bg="green")
-            buttons[1][i].config(bg="green")
-            buttons[2][i].config(bg="green")    
+            for j in range(3):
+                buttons[j][i].config(bg="green")
             return True
-        elif buttons[0][0]['text'] == buttons[1][1]['text'] == buttons[2][2]['text'] != "":
-            buttons[0][0].config(bg="green")
-            buttons[1][1].config(bg="green")
-            buttons[2][2].config(bg="green")
-            return True
-        elif buttons[0][2]['text'] == buttons[1][1]['text'] == buttons[2][0]['text'] != "":
-            buttons[0][2].config(bg="green")
-            buttons[1][1].config(bg="green")
-            buttons[2][0].config(bg="green")
-            return True
-    for j in range(3):
-        if buttons[0][j]['text'] == buttons[1][j]['text'] == buttons[2][j]['text'] != "":
-            buttons[0][j].config(bg="green")
-            buttons[1][j].config(bg="green")
-            buttons[2][j].config(bg="green")
-            return True
-        if buttons[0][0]['text'] == buttons[1][1]['text'] == buttons[2][2]['text'] != "":
-            buttons[0][0].config(bg="green")
-            buttons[1][1].config(bg="green")
-            buttons[2][2].config(bg="green")
-            return True
-        elif buttons[0][2]['text'] == buttons[1][1]['text'] == buttons[2][0]['text'] != "":
-            buttons[0][2].config(bg="green")
-            buttons[1][1].config(bg="green")
-            buttons[2][2].config(bg="green")
-            return True 
-        elif empty_space() is False:
-            for i in range(3):
-                for j in range(3):
-                    buttons[i][j].config(bg="red")
-            return "Tie"
-        else:
-            return False   
+    if buttons[0][0]['text'] == buttons[1][1]['text'] == buttons[2][2]['text'] != "":
+        for k in range(3):
+            buttons[k][k].config(bg="green")
+        return True
+    if buttons[0][2]['text'] == buttons[1][1]['text'] == buttons[2][0]['text'] != "":
+        buttons[0][2].config(bg="green")
+        buttons[1][1].config(bg="green")
+        buttons[2][0].config(bg="green")
+        return True
+    if not empty_space():
+        for i in range(3):
+            for j in range(3):
+                buttons[i][j].config(bg="red")
+        return "Tie"
+    return False  
 def empty_space():
     space=9
     for i in range(3):
@@ -89,7 +69,6 @@ def reset():
     for i in range(3):
         for j in range(3):
             buttons[i][j].config(text="", bg="SystemButtonFace")  
-
 
 window=Tk()
 window.title("Tic Tac Toe")
@@ -114,6 +93,4 @@ for i in range(3):
         buttons[i][j] = Button(frame, text="", font=("consolas", 40), width=5, height=2,
                                command=lambda row=i, col=j: click(row, col))
         buttons[i][j].grid(row=i, column=j)
-
-
 window.mainloop()
