@@ -4,7 +4,6 @@ import random
 def next_turn(row , column):
     global player
     if buttons[row][column]['text'] == "" and check_winner() is False:
-        
         if player== players[0]:
             buttons[row][column]['text']= player
             if check_winner() is False:
@@ -35,6 +34,16 @@ def check_winner():
             buttons[0][i].config(bg="green")
             buttons[1][i].config(bg="green")
             buttons[2][i].config(bg="green")    
+            return True
+        elif buttons[0][0]['text'] == buttons[1][1]['text'] == buttons[2][2]['text'] != "":
+            buttons[0][0].config(bg="green")
+            buttons[1][1].config(bg="green")
+            buttons[2][2].config(bg="green")
+            return True
+        elif buttons[0][2]['text'] == buttons[1][1]['text'] == buttons[2][0]['text'] != "":
+            buttons[0][2].config(bg="green")
+            buttons[1][1].config(bg="green")
+            buttons[2][0].config(bg="green")
             return True
     for j in range(3):
         if buttons[0][j]['text'] == buttons[1][j]['text'] == buttons[2][j]['text'] != "":
@@ -80,7 +89,6 @@ def reset():
     for i in range(3):
         for j in range(3):
             buttons[i][j].config(text="", bg="SystemButtonFace")  
-
 
 
 window=Tk()
